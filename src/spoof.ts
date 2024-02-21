@@ -1,4 +1,4 @@
-import { ElementHandle, Page, BoundingBox, CDPSession } from 'puppeteer'
+import { ElementHandle, Page, BoundingBox, CDPSession } from 'mypuppeteer-core'
 import debug from 'debug'
 import {
   Vector,
@@ -147,7 +147,7 @@ const getElementBox = async (
 
     return elementBox
   } catch (_) {
-    log('Quads not found, trying regular boundingBox')
+    // log('Quads not found, trying regular boundingBox')
     return await element.boundingBox()
   }
 }
@@ -238,7 +238,7 @@ export const createCursor = (
         // Exit function if the browser is no longer connected
         if (!page.browser().isConnected()) return
 
-        log('Warning: could not move mouse, error message:', error)
+        // log('Warning: could not move mouse, error message:', error)
       }
     }
   }
@@ -262,7 +262,7 @@ export const createCursor = (
         (_) => {}
       ) // fire and forget, recursive function
     } catch (_) {
-      log('Warning: stopping random mouse movements')
+      // log('Warning: stopping random mouse movements')
     }
   }
 
@@ -292,7 +292,7 @@ export const createCursor = (
         }
         await page.mouse.up()
       } catch (error) {
-        log('Warning: could not click mouse, error message:', error)
+        // log('Warning: could not click mouse, error message:', error)
       }
 
       if (options?.moveDelay !== undefined && options.moveDelay >= 0) {
@@ -351,7 +351,7 @@ export const createCursor = (
             })
           } catch (e) {
             // use regular JS scroll method as a fallback
-            log('Falling back to JS scroll method', e)
+            // log('Falling back to JS scroll method', e)
             await elem.evaluate((e) => e.scrollIntoView({ block: 'center' }))
             await new Promise((resolve) => setTimeout(resolve, 2000)) // Wait a bit until the scroll has finished
           }
